@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Advanced Search</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="advanced-page">
+    <div class="advanced-topbar">
+        <div class="small-logo">
+            <span class="blue">G</span><span class="red">o</span><span class="yellow">o</span><span class="blue">g</span><span class="green">l</span><span class="red">e</span>
+        </div>
+        <div class="top-links">
+            <a href="index.html">Google Search</a>
+        </div>
+    </div>
+
+    <div class="advanced-header">
+        <h1>Advanced Search</h1>
+    </div>
+
+    <form action="https://www.google.com/search" method="GET" class="advanced-form">
+        <div class="advanced-row">
+            <label for="all-words">Find pages with... “all these words:”</label>
+            <input type="text" id="all-words" name="as_q">
+        </div>
+
+        <div class="advanced-row">
+            <label for="exact-phrase">Find pages with... “this exact word or phrase:”</label>
+            <input type="text" id="exact-phrase" name="as_epq">
+        </div>
+
+        <div class="advanced-row">
+            <label for="any-words">Find pages with... “any of these words:”</label>
+            <input type="text" id="any-words" name="as_oq">
+        </div>
+
+        <div class="advanced-row">
+            <label for="none-words">Find pages with... “none of these words:”</label>
+            <input type="text" id="none-words" name="as_eq">
+        </div>
+
+        <div class="advanced-actions">
+            <input type="submit" value="Advanced Search" class="advanced-button">
+        </div>
+    </form>
+</body>
+</html>
