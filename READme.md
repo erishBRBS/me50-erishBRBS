@@ -30,3 +30,15 @@ This project is a Wikipedia-like online encyclopedia built with Django. Users ca
   - `templates/encyclopedia/` - HTML templates
   - `static/encyclopedia/styles.css` - CSS styling
 - `entries/` - Markdown files for encyclopedia entries
+
+## Demo Checklist
+- User can view a list of all encyclopedia entries on the index page
+- User can click an entry title to view the full encyclopedia entry page
+- User can search for an exact entry title and be redirected to that entry page
+- User can search for a partial title and see matching search results
+- User can create a new encyclopedia entry
+- User cannot create a duplicate entry with the same title
+- User can edit an existing encyclopedia entry
+- User can open a random encyclopedia entry
+- Markdown content is converted to HTML before being displayed
+- Invalid or missing pages show an error page
