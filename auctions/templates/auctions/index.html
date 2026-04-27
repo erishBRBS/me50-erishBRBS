@@ -1,0 +1,49 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <div class="page-header">
+        <h2>Active Listings</h2>
+        <p class="text-muted">Browse open auctions and place your bid.</p>
+    </div>
+
+    <div class="listing-grid">
+        {% for listing in listings %}
+            <div class="card listing-card">
+                {% if listing.image_url %}
+                    <img src="{{ listing.image_url }}" class="card-img-top listing-image" alt="{{ listing.title }}">
+                {% else %}
+                    <div class="listing-image placeholder-image">No Image</div>
+                {% endif %}
+
+                <div class="card-body d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <h5 class="card-title mb-1">
+                            <a href="{% url 'listing_detail' listing.id %}">{{ listing.title }}</a>
+                        </h5>
+                        {% if listing.category %}
+                            <span class="badge badge-secondary">{{ listing.category.name }}</span>
+                        {% endif %}
+                    </div>
+
+                    <p class="card-text text-muted mt-2">{{ listing.description|truncatechars:130 }}</p>
+
+                    <div class="mt-auto">
+                        <p class="price mb-1">${{ listing.current_price }}</p>
+                        <p class="small text-muted mb-3">Listed by {{ listing.owner.username }}</p>
+                        <a href="{% url 'listing_detail' listing.id %}" class="btn btn-primary btn-sm">View Listing</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="empty-state">
+                <h4>No active listings yet.</h4>
+                {% if user.is_authenticated %}
+                    <p>Create the first auction listing.</p>
+                    <a href="{% url 'create_listing' %}" class="btn btn-primary">Create Listing</a>
+                {% else %}
+                    <p>Log in or register to create one.</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

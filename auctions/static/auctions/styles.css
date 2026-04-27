@@ -1,0 +1,121 @@
+body {
+    background: #f7f8fb;
+    color: #212529;
+}
+
+.site-title {
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+.nav-link {
+    font-weight: 600;
+}
+
+.page-header {
+    margin-bottom: 1.5rem;
+}
+
+.listing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+}
+
+.listing-card {
+    border: 0;
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+    min-height: 100%;
+}
+
+.listing-image {
+    height: 220px;
+    width: 100%;
+    object-fit: cover;
+    background: #e9ecef;
+}
+
+.placeholder-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    font-weight: 700;
+}
+
+.detail-image {
+    width: 100%;
+    max-height: 520px;
+    object-fit: cover;
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    background: #e9ecef;
+}
+
+.price {
+    color: #0b5ed7;
+    font-weight: 800;
+    font-size: 1.35rem;
+}
+
+.badge-lg {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
+}
+
+.form-page {
+    max-width: 720px;
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+}
+
+.panel {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    border: 1px solid #e9ecef;
+}
+
+.comment-card {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+}
+
+.category-list {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.category-pill {
+    display: inline-block;
+    background: white;
+    border: 1px solid #dee2e6;
+    padding: 0.75rem 1rem;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+}
+
+.category-pill:hover {
+    text-decoration: none;
+    background: #0b5ed7;
+    color: white;
+}

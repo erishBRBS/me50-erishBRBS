@@ -1,0 +1,25 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <div class="form-page">
+        <h2>Create Listing</h2>
+        <p class="text-muted">Add a title, description, starting bid, optional image URL, and category.</p>
+
+        <form method="post">
+            {% csrf_token %}
+
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="text-danger small">{{ field.errors }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary">Create Listing</button>
+            <a href="{% url 'index' %}" class="btn btn-light">Cancel</a>
+        </form>
+    </div>
+{% endblock %}

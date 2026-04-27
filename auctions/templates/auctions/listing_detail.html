@@ -1,0 +1,124 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <div class="listing-detail">
+        <div class="row">
+            <div class="col-md-5 mb-4">
+                {% if listing.image_url %}
+                    <img src="{{ listing.image_url }}" class="detail-image" alt="{{ listing.title }}">
+                {% else %}
+                    <div class="detail-image placeholder-image">No Image</div>
+                {% endif %}
+            </div>
+
+            <div class="col-md-7">
+                <div class="d-flex justify-content-between align-items-start flex-wrap">
+                    <div>
+                        <h2>{{ listing.title }}</h2>
+                        <p class="text-muted">Listed by {{ listing.owner.username }}</p>
+                    </div>
+
+                    {% if listing.active %}
+                        <span class="badge badge-success badge-lg">Active</span>
+                    {% else %}
+                        <span class="badge badge-danger badge-lg">Closed</span>
+                    {% endif %}
+                </div>
+
+                <p>{{ listing.description }}</p>
+
+                {% if listing.category %}
+                    <p><strong>Category:</strong> {{ listing.category.name }}</p>
+                {% endif %}
+
+                <h3 class="price">${{ listing.current_price }}</h3>
+
+                {% if highest_bid %}
+                    <p class="text-muted">Highest bid by {{ highest_bid.bidder.username }}</p>
+                {% else %}
+                    <p class="text-muted">No bids yet. Starting bid: ${{ listing.starting_bid }}</p>
+                {% endif %}
+
+                {% if not listing.active %}
+                    <div class="alert alert-info">
+                        This auction is closed.
+                        {% if listing.winner %}
+                            Winner: <strong>{{ listing.winner.username }}</strong>
+                        {% else %}
+                            No winner because no bids were placed.
+                        {% endif %}
+                    </div>
+
+                    {% if user.is_authenticated and listing.winner == user %}
+                        <div class="alert alert-success">
+                            Congratulations! You won this auction.
+                        </div>
+                    {% endif %}
+                {% endif %}
+
+                {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'toggle_watchlist' listing.id %}" class="mb-3">
+                        {% csrf_token %}
+                        {% if is_watchlisted %}
+                            <button class="btn btn-warning" type="submit">Remove from Watchlist</button>
+                        {% else %}
+                            <button class="btn btn-outline-primary" type="submit">Add to Watchlist</button>
+                        {% endif %}
+                    </form>
+
+                    {% if listing.active %}
+                        {% if listing.owner != user %}
+                            <div class="panel mb-3">
+                                <h4>Place Bid</h4>
+                                <form method="post" action="{% url 'place_bid' listing.id %}">
+                                    {% csrf_token %}
+                                    {{ bid_form.amount }}
+                                    <button type="submit" class="btn btn-success mt-2">Submit Bid</button>
+                                </form>
+                            </div>
+                        {% else %}
+                            <div class="alert alert-secondary">You own this listing, so you cannot bid on it.</div>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if listing.owner == user and listing.active %}
+                        <form method="post" action="{% url 'close_listing' listing.id %}" class="mb-3">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Close Auction</button>
+                        </form>
+                    {% endif %}
+                {% else %}
+                    <div class="alert alert-secondary">
+                        <a href="{% url 'login' %}">Log in</a> to bid, comment, or add this item to your watchlist.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="comments-section">
+            <h3>Comments</h3>
+
+            {% if user.is_authenticated %}
+                <form method="post" action="{% url 'add_comment' listing.id %}" class="mb-4">
+                    {% csrf_token %}
+                    {{ comment_form.content }}
+                    <button type="submit" class="btn btn-primary mt-2">Add Comment</button>
+                </form>
+            {% endif %}
+
+            {% for comment in comments %}
+                <div class="comment-card">
+                    <div class="d-flex justify-content-between flex-wrap">
+                        <strong>{{ comment.commenter.username }}</strong>
+                        <small class="text-muted">{{ comment.created_at }}</small>
+                    </div>
+                    <p class="mb-0 mt-2">{{ comment.content }}</p>
+                </div>
+            {% empty %}
+                <p class="text-muted">No comments yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

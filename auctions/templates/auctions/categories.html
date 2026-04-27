@@ -1,0 +1,16 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Categories</h2>
+    <p class="text-muted">Choose a category to see active listings.</p>
+
+    <div class="category-list">
+        {% for category in categories %}
+            <a href="{% url 'category_listings' category.id %}" class="category-pill">
+                {{ category.name }}
+            </a>
+        {% empty %}
+            <p>No categories yet. Add categories in the Django admin interface.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
